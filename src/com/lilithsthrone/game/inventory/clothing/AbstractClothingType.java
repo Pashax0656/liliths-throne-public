@@ -2675,26 +2675,8 @@ public abstract class AbstractClothingType extends AbstractCoreType {
 		}
 		int lastPatternShapeEndIndex = firstPatternShapeStartIndex;
 		
-		boolean continuePatternSetUp = true;
-		
-		while(continuePatternSetUp){
-			int currentShapeStartIndex = loadedPattern.indexOf("<path", lastPatternShapeEndIndex);
-			int currentRectStartIndex = loadedPattern.indexOf("<rect", lastPatternShapeEndIndex);
-			if((currentRectStartIndex != -1 && currentRectStartIndex < currentShapeStartIndex) || currentShapeStartIndex == -1) {
-				currentShapeStartIndex = currentRectStartIndex;
-			}
-			int currentShapeEndIndex = loadedPattern.indexOf("/>", currentShapeStartIndex);
-			
-			if(currentShapeEndIndex == -1 || currentShapeStartIndex == -1) {
-				continuePatternSetUp = false;
-			} else {
-				newPattern = newPattern
-						+ loadedPattern.substring(currentShapeStartIndex, currentShapeEndIndex)
-						+ "clip-path=\"url(#internalPatternClip)\""
-						+ "/>";
-				lastPatternShapeEndIndex = currentShapeEndIndex;
-			}
-		}
+		newPattern = "<g display=\"inline\" clip-path=\"url(#internalPatternClip)\">"
+				+ loadedPattern + "</g>";
 
 		returnable = returnable + s.substring(defEndIndex, firstShapeStartIndex)
 				+ newPattern

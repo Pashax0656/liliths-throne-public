@@ -89,7 +89,7 @@ public class Pattern {
 				for(String line : lines) {
 					sb.append(line);
 				}
-				baseSVGString = sb.toString();
+				baseSVGString = SvgUtil.extractImageData(sb.toString());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

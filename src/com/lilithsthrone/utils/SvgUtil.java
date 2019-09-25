@@ -163,4 +163,12 @@ public class SvgUtil {
 
 		return s;
 	}
+	
+	public static String extractImageData(String imageString) {
+		String s = sanitizeImageString(imageString, false);
+		
+		// strips off the SVG header for composite image parts like patterns
+		s = s.replaceFirst("<svg [^>]*>", "");
+		return s.replaceAll("</svg\\s*>", "");
+	}
 }
